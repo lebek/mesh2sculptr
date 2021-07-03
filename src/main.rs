@@ -23,7 +23,7 @@ fn get_level(max_val : u32) -> usize {
 fn voxels_to_obj(pyramid : &Voxels<f32>) {
     let (v, i) = pyramid.vertices_indices();
 
-    let file = File::create("out/pyramid.obj").expect("Failed to create output file");
+    let file = File::create("out.obj").expect("Failed to create output file");
     let mut file = BufWriter::new(file);
     for vertex in v {
         writeln!(
@@ -99,7 +99,7 @@ fn main() {
 
     println!("Filling gaps...");
     voxelization.fill();
-    voxels_to_obj(&voxelization);
+    //voxels_to_obj(&voxelization);
 
     println!("Writing Sculptr Data.csv...");
     let (min, max) = voxelization.min_max();
@@ -108,7 +108,7 @@ fn main() {
     .expect("Could not determine voxelization size");
     let voxelization_level = get_level(max_val);
     
-    let mut wtr = Writer::from_path("out/Data.csv").expect("Failed to open output CSV");
+    let mut wtr = Writer::from_path("Data.csv").expect("Failed to open output CSV");
     wtr.write_record(&["X", "Y", "Z", "level", "R", "G", "B", "mat"])
     .expect("Failed to write CSV row");
 
