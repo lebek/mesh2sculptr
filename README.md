@@ -1,7 +1,9 @@
 # mesh2sculptr
 Convert OBJ files to `Data.csv` that can be imported to [SculptrVR](https://www.sculptrvr.com/) on Desktop.
 
-This was inspired by and partially based on https://github.com/EX0l0N/ply-to-SculptrVR-csv -- which does the same thing for PLY point clouds.
+![](https://raw.githubusercontent.com/lebek/mesh2sculptr/master/stanford_dragon.png)
+
+Inspired by and partially based on https://github.com/EX0l0N/ply-to-SculptrVR-csv -- which does the same thing for PLY point clouds.
 
 ## Binaries
 [Windows](https://github.com/lebek/mesh2sculptr/releases/latest/download/mesh2sculptr.exe)

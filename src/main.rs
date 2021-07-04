@@ -46,11 +46,14 @@ fn main() {
                             .index(1)
                             .takes_value(true))
         .arg(Arg::with_name("resolution")
+            .long("resolution")
             .help("Sets the resolution of the voxel output (i.e. num voxels per axis)")
             .default_value("100"))
         .arg(Arg::with_name("fill")
+            .long("fill")
             .help("Attempt to fill the inside of the mesh with voxels"))
         .arg(Arg::with_name("objviz")
+            .long("objviz")
             .help("In addition to the CSV, output an OBJ representing the voxelization (useful for debugging)"))
         .get_matches();
 
