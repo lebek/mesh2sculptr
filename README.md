@@ -15,18 +15,19 @@ mesh2sculptr 0.1.0
 OBJ -> SculptrVR Converter
 
 USAGE:
-    mesh2sculptr.exe <file> [ARGS]
+    mesh2sculptr.exe [FLAGS] [OPTIONS] <file>
 
 FLAGS:
+        --fill       Attempt to fill the inside of the mesh with voxels
     -h, --help       Prints help information
+        --objviz     In addition to the CSV, output an OBJ representing the voxelization (useful for debugging)
     -V, --version    Prints version information
 
-ARGS:
-    <file>          Sets input OBJ file
-    <resolution>    Sets the resolution of the voxel output (i.e. num voxels per axis) [default: 100]
-    <fill>          Attempt to fill the inside of the mesh with voxels
-    <objviz>        In addition to the CSV, output an OBJ representing the voxelization (useful for debugging)
+OPTIONS:
+        --resolution <resolution>    Sets the resolution of the voxel output (i.e. num voxels per axis) [default: 100]
 
+ARGS:
+    <file>    Sets input OBJ file
 ```
 
 In most cases you just want: 
