@@ -4,9 +4,6 @@ use std::io::{BufWriter, Write};
 use csv::Writer;
 use clap::{Arg, App};
 
-// TODO
-// Better fill
-
 fn get_level(max_val : u32) -> usize {
     let mut max_dim = 1u32;
     for level in (0..20).rev() {
@@ -17,7 +14,7 @@ fn get_level(max_val : u32) -> usize {
         max_dim <<= 1;
     }
 
-    panic!("Voxelization is too large. Try a larger box_size to reduce detail.");
+    panic!("Voxel grid is too large: {}", max_val);
 }
 
 fn voxels_to_obj(pyramid : &Voxels<f32>) {
@@ -42,18 +39,26 @@ fn voxels_to_obj(pyramid : &Voxels<f32>) {
 fn main() {
     let matches = App::new("mesh2sculptr")
         .version("0.1.0")
-        .about("Bring meshes into SculptrVR")
+        .about("OBJ -> SculptrVR Converter")
         .arg(Arg::with_name("file")
                             .help("Sets input OBJ file")
                             .required(true)
                             .index(1)
                             .takes_value(true))
-        .arg(Arg::with_name("resolution").default_value("100"))
+        .arg(Arg::with_name("resolution")
+            .help("Sets the resolution of the voxel output (i.e. num voxels per axis)")
+            .default_value("100"))
+        .arg(Arg::with_name("fill")
+            .help("Attempt to fill the inside of the mesh with voxels"))
+        .arg(Arg::with_name("objviz")
+            .help("In addition to the CSV, output an OBJ representing the voxelization (useful for debugging)"))
         .get_matches();
 
 
     let obj_file = matches.value_of("file").unwrap();
     let resolution_str = matches.value_of("resolution").unwrap();
+    let fill = matches.is_present("fill");
+    let objviz = matches.is_present("objviz");
 
     let resolution : i32 = resolution_str.parse().unwrap();
 
@@ -67,7 +72,7 @@ fn main() {
             &obj_file,
             &load_options
         )
-        .expect("Failed to OBJ load file");
+        .expect("Failed to load OBJ file");
 
     println!("Gathering mesh data for {} models...", models.len());
     let mut vertices : Vec<[f32; 3]> = vec![];
@@ -97,13 +102,18 @@ fn main() {
     let box_size : f32 = 2.0 / (resolution as f32);
     let mut voxelization = Voxels::voxelize(&vertices, &indices, box_size);
 
-    println!("Filling gaps...");
-    voxelization.fill();
-    //voxels_to_obj(&voxelization);
+    if fill {
+        println!("Filling gaps...");
+        voxelization.fill();
+    }
 
-    println!("Writing Sculptr Data.csv...");
+    if objviz {
+        println!("Outputting OBJ visualization...");
+        voxels_to_obj(&voxelization);
+    }
+
+    println!("Writing Data.csv...");
     let (min, max) = voxelization.min_max();
-    //println!("min: {:?}, max: {:?}", min, max);
     let max_val = min.iter().chain(max.iter()).map(|x| x.abs() as u32).max()
     .expect("Could not determine voxelization size");
     let voxelization_level = get_level(max_val);
