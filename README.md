@@ -40,29 +40,29 @@ $ mesh2sculptr.exe yourmesh.obj --resolution 200
 ## Importing the `Data.csv` to SculptrVR
 From PLY-to-SculptrVR:
 
-It's a little secret, actually - _and it does only work for the PC version!_
+> It's a little secret, actually - _and it does only work for the PC version!_
+> 
+> You have to move the `Data.csv` file into a folder named `CSVs` at the top-level of the SculptrVR installation folder.  
+> _Which is **not** your documents folder_.
+> 
+> Here's a piece of my SteamLibrary to help you figure out where:
+> 
+> ```
+> SteamLibrary
+> └── steamapps
+>     ├── common
+>     │   └── sculptrvr
+>     │       ├── Engine
+>     │       ├── SculptrVR
+>     │       │   ├── Binaries
+>     │       │   ├── Content
+>     │       │   ├── CSVs
+>     │       │   │   └── Data.csv
+>     │       │   └── Plugins
+>     │       └── SculptrVR.exe
+> ```
+> 
+> If you created that folder and put `Data.csv` there, you may press `ctrl-shift-L` anytime in SculptrVR to load the data.  
+> Be sure that **the window has focus** (if you see a steam dialog in front, click into SculptrVRs window).
 
-You have to move the `Data.csv` file into a folder named `CSVs` at the top-level of the SculptrVR installation folder.  
-_Which is **not** your documents folder_.
-
-Here's a piece of my SteamLibrary to help you figure out where:
-
-```
-SteamLibrary
-└── steamapps
-    ├── common
-    │   └── sculptrvr
-    │       ├── Engine
-    │       ├── SculptrVR
-    │       │   ├── Binaries
-    │       │   ├── Content
-    │       │   ├── CSVs
-    │       │   │   └── Data.csv
-    │       │   └── Plugins
-    │       └── SculptrVR.exe
-```
-
-If you created that folder and put `Data.csv` there, you may press `ctrl-shift-L` anytime in SculptrVR to load the data.  
-Be sure that **the window has focus** (if you see a steam dialog in front, click into SculptrVRs window).
-
-**After import you need to switch the layer to block rendering mode to see anything.**
+**After import you have to switch the layer to BLOCK rendering mode to see anything.**
